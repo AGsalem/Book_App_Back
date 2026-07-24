@@ -1,10 +1,12 @@
 import fp from 'fastify-plugin'
+import { a } from '../common/var.js'
 export default fp(fa => {
     fa.register(import("@fastify/jwt"), {
-        secret:"asdfghjklqwertyuiop134567890zxcvbnmsdfghj",
+        secret:`${a}`,
         cookie: {
             cookieName: 'token',
             signed: false
         }
-    })
+    }) ;
+
 })

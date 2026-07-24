@@ -22,7 +22,9 @@ export const sign = async (request, reply) => {
                 const { id } = await res
                 const nameofsearch = await res.nameofsearch
                 // const getToken = await request.cookies.token
-                const token = await request.server.jwt.sign({ username, id, nameofsearch });
+                const token = await request.server.jwt.sign({ username, id, nameofsearch }, 'Stack', {
+                    expiresIn: '1d'
+                });
                 // reply.clearCookie("token")
                 reply.cookie("token", token, { httpOnly: true, secure: true, path: "/" })
                 return reply.code(200).send({ "res": `${nameofsearch}`, "message": "log in finsh" })
@@ -33,7 +35,7 @@ export const sign = async (request, reply) => {
                 return reply.code(400).send({ "mess": "have account go login" })
             }
         }
-    } catch (err:any) {
+    } catch (err: any) {
         if (err.code === ' Fastify.errorCodes.FST_ERR_VALIDATION') {
             return ERRLOGIN(request, reply)
         }

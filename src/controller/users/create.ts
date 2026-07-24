@@ -1,6 +1,4 @@
 import { ISE,ERRSCHEMA } from "../../common/err.js"
-
-
 import "@fastify/postgres"
 import '@fastify/jwt'
 export const create = async (request, reply) => {
@@ -12,13 +10,14 @@ export const create = async (request, reply) => {
     } catch (err) {
         return ISE(request, reply)
     }
-    // return ({username, password, nameofsearch, uorc })
     try {
         const a = await request.server.pg.query("INSERT INTO users(username,password,nameofsearch,userorsells) VALUES ($1,$2,$3,$4)", [username, password, nameofsearch, uorc])
         const idUserAfterCreate = await request.server.pg.query("SELECT id,username FROM users WHERE username=$1", [username])
         const [row] = await idUserAfterCreate.rows
         const id = await row.id
-        const token = await request.server.jwt.sign({ nameofsearch, username, id });
+        const token = await request.server.jwt.sign({ nameofsearch, username, id },'Stack',{
+            expiresIn:'1d'
+        });
         reply.clearCookie("token")
         reply.setCookie('token', token, { httpOnly: true, secure: true, path: "/" })
         return reply.code(200).send({ "mes": "create account finsh" })
@@ -29,4 +28,3 @@ export const create = async (request, reply) => {
     }
 
 }
-// Ahmed Gamal Salem

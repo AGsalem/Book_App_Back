@@ -10,8 +10,6 @@ export const admin = async (request, reply) => {
         //     // تعريف الي جي من الداش بورد
         const findad = await request.server.pg.query('SELECT * FROM admin WHERE id=$1 AND admin_name=$2 AND admin_pass=$3', [id, name, pass])
         if (findad.rows.length === 0) {
-            console.log(findad)
-            console.log(id, pass, name)
             return reply.code(401).send({ "ban": "ban" })
         }
         else {

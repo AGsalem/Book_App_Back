@@ -11,11 +11,11 @@ export default fp(async (fastify) => {
             },
             type: {
                 type: "string",
-                minLength: 8
+                enum: ['Action','Drama', 'Comedy', 'Horror', 'Romance']
             },
-            sell:{
-                type:"string",
-                enum:['20','40','60','80']
+            sell: {
+                type: "string",
+                enum: ['20', '40', '60', '80']
             },
             discription: {
                 type: "string",
