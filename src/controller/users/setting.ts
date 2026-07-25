@@ -5,12 +5,8 @@ export const setting = async (request, reply) => {
         const Vtoken = await request.jwtVerify()
         const sname = await Vtoken.nameofsearch
         const name = await Vtoken.username
-
-
-            return reply.send({ "mes":`${name}` })
-
-
-    } catch (err:any) {
+        return reply.send({ "mes": `${name}` })
+    } catch (err: any) {
         return reply.send({ "error": " page not found" })
     }
 }

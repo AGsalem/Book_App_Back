@@ -19,7 +19,7 @@ export const create = async (request, reply) => {
             expiresIn:'1d'
         });
         reply.clearCookie("token")
-        reply.setCookie('token', token, { httpOnly: true, secure: true, path: "/" })
+        reply.setCookie('token', token,  { httpOnly: true, secure: true, path: "/", sameSite: 'none',maxAge: 30 * 24 * 60  })
         return reply.code(200).send({ "mes": "create account finsh" })
 
     } catch (err) {

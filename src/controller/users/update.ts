@@ -20,7 +20,7 @@ export const update = async (request, reply) => {
             expiresIn: '1d'
         })
         reply.clearCookie("token")
-        reply.cookie("token", token, { httpOnly: true, secure: true, path: "/" })
+        reply.cookie("token", token,  { httpOnly: true, secure: true, path: "/", sameSite: 'none',maxAge: 30 * 24 * 60  })
         return reply.send({ "mes": nameofsearch })
     }
     catch (err: any) {

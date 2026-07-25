@@ -33,7 +33,7 @@ export const addBook = async (request, reply) => {
              const addNewbook = await request.server.pg.query("INSERT INTO books(id_user,name,sell,type,discription,filename ) VALUES($1,$2,$3,$4,$5,$6);", [id,name,sell,type,discription,finsh])
             const save = await path.join(__dirname, '../../upload', finsh)
             await pipeline(file.file, fs.createWriteStream(save))
-            return reply.code(201).clearCookie('book', { httpOnly: true, secure: true, path: '/' }).send({ "message": "add file finsh" })
+            return reply.code(201).clearCookie('book',  { httpOnly: true, secure: true, path: "/", sameSite: 'none',maxAge: 30 * 24 * 60  }).send({ "message": "add file finsh" })
         }
     } catch (err: any) {
         if (err.code === 'FST_INVALID_MULTIPART_CONTENT_TYPE') {
