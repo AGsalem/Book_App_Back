@@ -7,7 +7,7 @@ const __dirname = dirname(__filename);
 export default fp(async (con) => {
     await con.register(import('@fastify/helmet'))
     await con.register(import('@fastify/cors'), {
-        origin: 'https://book-app-front-psi.vercel.app/',
+        origin: 'https://book-app-front-eight.vercel.app',
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true
     })
